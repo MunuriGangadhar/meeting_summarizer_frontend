@@ -11,6 +11,10 @@ function App() {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Use environment variable for API base URL, fallback to proxy for local dev
+  const API_BASE_URL = process.env.REACT_APP_API_URL 
+
+console.log("backend",API_BASE_URL);
   const validateFile = (file) => {
     if (!file) return 'No file selected';
     if (file.type !== 'text/plain' || !file.name.endsWith('.txt')) return 'Only .txt files allowed';
@@ -35,7 +39,7 @@ function App() {
     formData.append('prompt', prompt);
 
     try {
-      const res = await axios.post('/generate-summary', formData, {
+      const res = await axios.post(`${API_BASE_URL}/generate-summary`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setSummary(res.data.summary);
@@ -55,7 +59,7 @@ function App() {
     setIsLoading(true);
     setMessage('');
     try {
-      const res = await axios.post('/send-email', { summary, recipients });
+      const res = await axios.post(`${API_BASE_URL}/send-email`, { summary, recipients });
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.error || 'Error sending email');
