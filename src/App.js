@@ -11,10 +11,9 @@ function App() {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Use environment variable for API base URL, fallback to proxy for local dev
-  const API_BASE_URL = process.env.REACT_APP_API_URL 
+  // Direct backend URL (no env vars)
+  const API_BASE_URL = "https://meeting-summarizer-backend-4lvp.onrender.com";
 
-console.log("backend",API_BASE_URL);
   const validateFile = (file) => {
     if (!file) return 'No file selected';
     if (file.type !== 'text/plain' || !file.name.endsWith('.txt')) return 'Only .txt files allowed';

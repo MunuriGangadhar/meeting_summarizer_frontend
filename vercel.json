@@ -1,8 +1,3 @@
 {
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "https://meeting-summarizer-backend-4lvp.onrender.com/:path*"
-    }
-  ]
+    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
